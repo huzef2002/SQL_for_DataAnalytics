@@ -205,6 +205,11 @@ SELECT
 (SELECT count(order_id) from E_Orders e WHERE c.customer_id = e.customer_id)
 FROM Customers c
 
+ SELECT line_total FROM Order_Items as a1
+ WHERE  1 = (SELECT count(*)
+           FROM Order_Items a2
+           WHERE a1.line_total  > a2.line_total )
+
 
 ------------------------------------------EXISTS AND NOT EXISTS-------------------------------------
 SELECT 
@@ -238,8 +243,24 @@ SELECT * FROM Customers
 
  SELECT MAX(line_total) FROM Order_Items WHERE line_total < (SELECT MAX(line_total) FROM Order_Items)
 
+ ---------------------------------------CASE EXPRETION--------------------------------------
 
- SELECT line_total FROM Order_Items as a1
- WHERE  1 = (SELECT count(*)
-           FROM Order_Items a2
-           WHERE a1.line_total  > a2.line_total )
+ SELECT order_id, unit_price, discount,
+ CASE
+    WHEN unit_price > 1000 THEN 'Over Value'
+    ELSE 'Under Value'
+    END AS caseHandel
+ FROM Order_Items
+
+
+CREATE TABLE ZYX(
+ID INT identity(1,1)
+)
+
+SELECT * FROM Order_Items
+
+
+
+
+
+

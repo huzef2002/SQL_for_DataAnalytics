@@ -196,3 +196,11 @@ WHERE s.course_id  IS NULL OR c.course_id IS NULL
 
 SELECT * FROM Courses c
 CROSS JOIN Students s
+
+SELECT * FROM Courses
+SELECT * FROM Enrollments
+
+SELECT c.course_id, c.course_name, e.enrollment_date, e.amount_paid INTO Cour_Enrol FROM Courses c
+FULL OUTER JOIN Enrollments e ON c.course_id = e.course_id
+
+SELECT * FROM Cour_Enrol
